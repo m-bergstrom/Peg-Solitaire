@@ -18,7 +18,7 @@ namespace PegSolitaire.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("Peg_Solitaire.Data.ApplicationUser", b =>
+            modelBuilder.Entity("PegSolitaire.Data.ApplicationUser", b =>
             {
                 b.Property<string>("Id")
                     .HasColumnType("TEXT");
@@ -221,7 +221,7 @@ namespace PegSolitaire.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
             {
-                b.HasOne("Peg_Solitaire.Data.ApplicationUser", null)
+                b.HasOne("PegSolitaire.Data.ApplicationUser", null)
                     .WithMany()
                     .HasForeignKey("UserId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -230,7 +230,7 @@ namespace PegSolitaire.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
             {
-                b.HasOne("Peg_Solitaire.Data.ApplicationUser", null)
+                b.HasOne("PegSolitaire.Data.ApplicationUser", null)
                     .WithMany()
                     .HasForeignKey("UserId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -245,7 +245,7 @@ namespace PegSolitaire.Migrations
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
 
-                b.HasOne("Peg_Solitaire.Data.ApplicationUser", null)
+                b.HasOne("PegSolitaire.Data.ApplicationUser", null)
                     .WithMany()
                     .HasForeignKey("UserId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -254,7 +254,7 @@ namespace PegSolitaire.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
             {
-                b.HasOne("Peg_Solitaire.Data.ApplicationUser", null)
+                b.HasOne("PegSolitaire.Data.ApplicationUser", null)
                     .WithMany()
                     .HasForeignKey("UserId")
                     .OnDelete(DeleteBehavior.Cascade)
