@@ -1,0 +1,26 @@
+﻿@page "/"
+@using PegSolitaire.Components
+@using PegSolitaire.Engine.GameState
+@using PegSolitaire.Engine.Setup.Triangular
+
+<PageTitle>Home</PageTitle>
+
+<div>
+    <h1>Hello, world!</h1>
+
+    Welcome to your new app.
+
+    <Pegboard Board="@GameBoard"/>
+</div>
+
+@code {
+    public GameBoard? GameBoard { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        GameBoard = new GameBoard(new TriangularNodeSetup(new TriangularNodeAdjacencySetup()).GetInitalNodeState(5).ToList());
+    }
+
+}

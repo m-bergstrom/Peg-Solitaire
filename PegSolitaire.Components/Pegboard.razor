@@ -1,0 +1,154 @@
+﻿@using BlazorObservers.ObserverLibrary.Services
+@using BlazorObservers.ObserverLibrary.Tasks
+@using BlazorObservers.ObserverLibrary.JsModels
+@using PegSolitaire.Engine.GameState
+
+@implements IAsyncDisposable
+
+@*@inject ElementSizeGetter SizeGetter;*@
+@inject ResizeObserverService ResizeService
+
+@rendermode RenderMode.InteractiveAuto
+
+<p>This component is @_BoardWidth wide and @_BoardHeight tall.<br>
+Marble model size: @(_MinNodeDistance * MarbleToSeparationSizeRatio)<br>
+Marble image size: @_ScaledMarbleImageSize<br>
+Minimum Node Distance: @_MinNodeDistance<br>
+Scale: @_XFactor</p>
+<div class="peg-container" @ref="_ContainerDiv">
+    <svg xmlns="http://www.w3.org/2000/svg" class="game-board">
+        <defs>
+            <symbol id="marble" viewbox="0 0 1024 1024">
+                <image href="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" width="1024"
+                       height="1024"/>
+            </symbol>
+            <symbol id="space" viewbox="0 0 1024 1024">
+                <image href="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" width="1024"
+                       height="1024"/>
+            </symbol>
+        </defs>
+        <g>
+            @if (Board != null)
+            {
+                foreach (var node in Board.Nodes)
+                {
+                    if (node.Occupied)
+                    {
+                        <use href="#marble"
+                             transform="translate(@(node.X * _XFactor + _XOffset), @(node.Y * _YFactor + _YOffset))"
+                             width="@_ScaledMarbleImageSize" height="@_ScaledMarbleImageSize"/>
+                    }
+                    else
+                    {
+                        <use href="#space"
+                             transform="translate(@(node.X * _XFactor + _XOffset), @(node.Y * _YFactor + _YOffset))"
+                             width="@_ScaledMarbleImageSize" height="@_ScaledMarbleImageSize"/>
+                    }
+                }
+            }
+        </g>
+    </svg>
+</div>
+
+@code {
+    private ElementReference _ContainerDiv;
+    private ObserverTask<JsResizeObserverEntry[]>? _ObserverTask;
+
+    private double? _BoardWidth;
+    private double? _BoardHeight;
+
+    private double _XFactor;
+    private double _XOffset;
+
+    private double _YFactor;
+    private double _YOffset;
+
+    // Magic number for how large the marbles are relative to the
+    // minimum space between them
+    private const float MarbleToSeparationSizeRatio = 0.75F;
+    private const int OriginalMarbleImageSize = 1024;
+    private double _ScaledMarbleImageSize;
+
+    [Parameter] public GameBoard? Board { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            _ObserverTask = await ResizeService.RegisterObserver(HandleResize, _ContainerDiv);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        ResizeBoard();
+    }
+
+    /// <summary>
+    /// Calculates the size of the board display relative to the size
+    /// of the board model
+    /// </summary>
+    /// <remarks>
+    /// The board model can vary widely in width and height; it can
+    /// also feature negative position values.
+    /// </remarks>
+    private void ResizeBoard()
+    {
+        if (Board != null && _BoardWidth != null && _BoardHeight != null)
+        {
+            var modelMarbleSize = GetMinNodeDistance(Board) * MarbleToSeparationSizeRatio;
+
+            var maxX = Board.Nodes.Max(n => n.X);
+            var minX = Board.Nodes.Min(n => n.X);
+            var maxY = Board.Nodes.Max(n => n.Y);
+            var minY = Board.Nodes.Min(n => n.Y);
+
+            // Include half a marble size on the left plus half a
+            // marble size on the right
+            var xDiff = maxX - minX + modelMarbleSize;
+            var yDiff = maxY - minY + modelMarbleSize;
+
+            _XFactor = _YFactor = Math.Min(_BoardHeight.Value / yDiff, _BoardWidth.Value / xDiff) * 0.9;
+            _ScaledMarbleImageSize = modelMarbleSize * _XFactor;
+
+            _XOffset = 0 - minX * _XFactor + (_BoardWidth.Value - (maxX - minX) * _XFactor - _ScaledMarbleImageSize) / 2;
+            _YOffset = 0 - minY * _YFactor + (_BoardHeight.Value - (maxY - minY) * _YFactor - _ScaledMarbleImageSize) / 2;
+            StateHasChanged();
+        }
+    }
+
+    private double? _MinNodeDistance;
+
+    /// <summary>
+    /// Gets the minimum distance between nodes in the board model
+    /// </summary>
+    private double GetMinNodeDistance(GameBoard board)
+    {
+        if (_MinNodeDistance != null)
+            return _MinNodeDistance.Value;
+        var minDistance = float.PositiveInfinity;
+
+        foreach (var fromNode in board.Nodes)
+        foreach (var toNode in fromNode.Adjacent)
+            minDistance = Math.Min(minDistance, (float)Math.Sqrt(Math.Pow(toNode.X - fromNode.X, 2) + Math.Pow(toNode.Y - fromNode.Y, 2)));
+        _MinNodeDistance = minDistance;
+        return _MinNodeDistance.Value;
+    }
+
+    private void HandleResize(JsResizeObserverEntry[] entries)
+    {
+        var lastSize = entries.LastOrDefault();
+        if (lastSize != null)
+        {
+            _BoardWidth = lastSize.ContentBoxSize.InlineSize;
+            _BoardHeight = lastSize.ContentBoxSize.BlockSize;
+            ResizeBoard();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _ObserverTask?.HaltTaskTriggering();
+        _ObserverTask?.ResumeTaskTriggering();
+    }
+
+}

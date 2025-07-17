@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BlazorObservers" Version="1.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.7"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\images\Dark_marble.png" />
+      <None Include="wwwroot\images\Indentation_Shadow.png" />
+      <None Include="wwwroot\images\Translucent_sphere_Chocolate.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PegSolitaire.Engine\PegSolitaire.Engine.csproj" />
+    </ItemGroup>
+
+</Project>
