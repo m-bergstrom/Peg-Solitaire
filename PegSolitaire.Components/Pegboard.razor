@@ -11,22 +11,30 @@
 
 @rendermode RenderMode.InteractiveAuto
 
-<div class="peg-container" @ref="_ContainerDiv" data-container-id="game-board">
+<div class="peg-board" @ref="_ContainerDiv" data-container-id="game-board">
     @if (Board != null)
     {
+        var scaleStyle = $"width: {_ScaledMarbleImageSize}px; height: {_ScaledMarbleImageSize}px;";
         foreach (var node in Board.Nodes)
         {
             var transformedNodeX = node.X * _XFactor + _XOffset;
             var transformedNodeY = node.Y * _YFactor + _YOffset;
             var id = GetNodeId(node);
-            var style = $"left: {transformedNodeX}px; top: {transformedNodeY}px; width: {_ScaledMarbleImageSize}px; height: {_ScaledMarbleImageSize}px;";
+            var positionStyle = $"left: {transformedNodeX}px; top: {transformedNodeY}px;";
             if (node.Occupied)
             {
-                <img id="@id" data-item-id="@id" class="marble node dd-item" src="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" style="@style"/>
+                <div id="@id" data-item-id="@id" class="marble-container node dd-item" style="@positionStyle">
+                    <img id="@id" data-item-id="@id" class="marble node dd-item"
+                         src="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" style="@scaleStyle"/>
+                    <img class="marble-highlight"
+                         src="./_content/PegSolitaire.Components/images/Sphere_highlight_transparent.png"
+                         style="@scaleStyle"/>
+                </div>
             }
             else
             {
-                <img id="@id" data-container-id="@id" class="space node dd-container" src="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" style="@style"/>
+                <img id="@id" data-container-id="@id" class="space node dd-container"
+                     src="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" style="@positionStyle @scaleStyle"/>
             }
         }
     }
@@ -45,8 +53,8 @@
     private double _YFactor;
     private double _YOffset;
 
-    // Magic number for how large the marbles are relative to the
-    // minimum space between them
+// Magic number for how large the marbles are relative to the
+// minimum space between them
     private const float MarbleToSeparationSizeRatio = 0.75F;
     private const int OriginalMarbleImageSize = 1024;
     private double _ScaledMarbleImageSize;
@@ -118,8 +126,8 @@
             var maxY = Board.Nodes.Max(n => n.Y);
             var minY = Board.Nodes.Min(n => n.Y);
 
-            // Include half a marble size on the left plus half a
-            // marble size on the right
+// Include half a marble size on the left plus half a
+// marble size on the right
             var xDiff = maxX - minX + modelMarbleSize;
             var yDiff = maxY - minY + modelMarbleSize;
 
