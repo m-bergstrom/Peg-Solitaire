@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Finaltouch.DragDrop.Components\Finaltouch.DragDrop.Components.csproj" />
       <ProjectReference Include="..\PegSolitaire.Engine\PegSolitaire.Engine.csproj" />
     </ItemGroup>
 

@@ -1,6 +1,6 @@
 {
-  "name": "PegSolitaire.App",
-  "short_name": "PegSolitaire.App",
+  "name": "Peg Solitaire",
+  "short_name": "PegSolitaire",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

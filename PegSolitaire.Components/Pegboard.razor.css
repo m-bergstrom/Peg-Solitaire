@@ -10,7 +10,7 @@
     box-shadow: inset 1px 1px 5px rgba(255,255,255,0.8),
     inset 1px 1px 5px rgba(0,0,0,1); /* Simulating a bevel effect */
     overflow: auto;
-
+    position: relative;
 }
 
 .game-board {
@@ -18,9 +18,11 @@
     height: 100%;
 }
 
-.marble {
-    /*fill: #f33;
-    stroke: #800;
-    stroke-width: 2;
-    background-image: url('images/Translucent_sphere_Chocolate.png');*/
+.marble:hover {
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.node {
+    position: absolute;
 }

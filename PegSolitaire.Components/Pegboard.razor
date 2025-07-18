@@ -2,52 +2,34 @@
 @using BlazorObservers.ObserverLibrary.Tasks
 @using BlazorObservers.ObserverLibrary.JsModels
 @using PegSolitaire.Engine.GameState
+@using Finaltouch.DragDrop.Components
 
 @implements IAsyncDisposable
 
-@*@inject ElementSizeGetter SizeGetter;*@
 @inject ResizeObserverService ResizeService
+@inject DragDropInterop DragDropInterop
 
 @rendermode RenderMode.InteractiveAuto
 
-<p>This component is @_BoardWidth wide and @_BoardHeight tall.<br>
-Marble model size: @(_MinNodeDistance * MarbleToSeparationSizeRatio)<br>
-Marble image size: @_ScaledMarbleImageSize<br>
-Minimum Node Distance: @_MinNodeDistance<br>
-Scale: @_XFactor</p>
-<div class="peg-container" @ref="_ContainerDiv">
-    <svg xmlns="http://www.w3.org/2000/svg" class="game-board">
-        <defs>
-            <symbol id="marble" viewbox="0 0 1024 1024">
-                <image href="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" width="1024"
-                       height="1024"/>
-            </symbol>
-            <symbol id="space" viewbox="0 0 1024 1024">
-                <image href="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" width="1024"
-                       height="1024"/>
-            </symbol>
-        </defs>
-        <g>
-            @if (Board != null)
+<div class="peg-container" @ref="_ContainerDiv" data-container-id="game-board">
+    @if (Board != null)
+    {
+        foreach (var node in Board.Nodes)
+        {
+            var transformedNodeX = node.X * _XFactor + _XOffset;
+            var transformedNodeY = node.Y * _YFactor + _YOffset;
+            var id = GetNodeId(node);
+            var style = $"left: {transformedNodeX}px; top: {transformedNodeY}px; width: {_ScaledMarbleImageSize}px; height: {_ScaledMarbleImageSize}px;";
+            if (node.Occupied)
             {
-                foreach (var node in Board.Nodes)
-                {
-                    if (node.Occupied)
-                    {
-                        <use href="#marble"
-                             transform="translate(@(node.X * _XFactor + _XOffset), @(node.Y * _YFactor + _YOffset))"
-                             width="@_ScaledMarbleImageSize" height="@_ScaledMarbleImageSize"/>
-                    }
-                    else
-                    {
-                        <use href="#space"
-                             transform="translate(@(node.X * _XFactor + _XOffset), @(node.Y * _YFactor + _YOffset))"
-                             width="@_ScaledMarbleImageSize" height="@_ScaledMarbleImageSize"/>
-                    }
-                }
+                <img id="@id" data-item-id="@id" class="marble node dd-item" src="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" style="@style"/>
             }
-        </g>
-    </svg>
+            else
+            {
+                <img id="@id" data-container-id="@id" class="space node dd-container" src="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" style="@style"/>
+            }
+        }
+    }
 </div>
 
 @code {
@@ -71,10 +53,44 @@ Scale: @_XFactor</p>
 
     [Parameter] public GameBoard? Board { get; set; }
 
+    [Parameter] public EventCallback<(GameNode from, GameNode to)> MoveAttempted { get; set; }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
+        {
             _ObserverTask = await ResizeService.RegisterObserver(HandleResize, _ContainerDiv);
+
+            if (DragDropInterop != null)
+            {
+                await DragDropInterop.Initialize(DropMarbleRelease, new DragDropOptions());
+            }
+        }
+
+        if (DragDropInterop != null)
+        {
+            await DragDropInterop.AddListeners();
+        }
+    }
+
+    private async Task DropMarbleRelease(DragDropResult arg)
+    {
+#if DEBUG
+        Console.WriteLine($"Dragging {(!string.IsNullOrEmpty(arg.SourceItemId) ? arg.SourceItemId : "N/A")} from {(!string.IsNullOrEmpty(arg.SourceContainerId) ? arg.SourceContainerId : "N/A")} to {(!string.IsNullOrEmpty(arg.TargetItemId) ? arg.TargetItemId : "N/A")} in {(!string.IsNullOrEmpty(arg.TargetContainerId) ? arg.TargetContainerId : "N/A")}");
+#endif
+
+        var from = arg.SourceItemId ?? arg.SourceContainerId;
+        var to = arg.TargetItemId ?? arg.TargetContainerId;
+
+        if (!string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to))
+        {
+            var fromNode = GetNodeFromId(from);
+            var toNode = GetNodeFromId(to);
+
+            await MoveAttempted.InvokeAsync((fromNode, toNode));
+        }
+
+        StateHasChanged();
     }
 
     protected override void OnParametersSet()
@@ -112,6 +128,15 @@ Scale: @_XFactor</p>
 
             _XOffset = 0 - minX * _XFactor + (_BoardWidth.Value - (maxX - minX) * _XFactor - _ScaledMarbleImageSize) / 2;
             _YOffset = 0 - minY * _YFactor + (_BoardHeight.Value - (maxY - minY) * _YFactor - _ScaledMarbleImageSize) / 2;
+
+#if DEBUG
+            Console.WriteLine($"This component is {_BoardWidth} wide and {_BoardHeight} tall.<br>");
+            Console.WriteLine($"Marble model size: {_MinNodeDistance * MarbleToSeparationSizeRatio}<br>");
+            Console.WriteLine($"Marble image size: {_ScaledMarbleImageSize}<br>");
+            Console.WriteLine($"Minimum Node Distance: {_MinNodeDistance}<br>");
+            Console.WriteLine($"Scale: {_XFactor}");
+#endif
+
             StateHasChanged();
         }
     }
@@ -149,6 +174,18 @@ Scale: @_XFactor</p>
     {
         _ObserverTask?.HaltTaskTriggering();
         _ObserverTask?.ResumeTaskTriggering();
+    }
+
+    private static string GetNodeId(GameNode node)
+    {
+        return $"node-X{node.X}Y{node.Y}";
+    }
+
+    private static GameNode GetNodeFromId(string id)
+    {
+        const int preambleLength = 6; //"node-X".Length;
+        var coordinates = id[preambleLength..].Split("Y").Select(float.Parse).ToArray();
+        return new GameNode(coordinates[0], coordinates[1]);
     }
 
 }
