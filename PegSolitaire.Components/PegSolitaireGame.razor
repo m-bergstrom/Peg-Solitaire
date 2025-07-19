@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-6">
             <div class="input-group">
-                <button class="btn btn-dark" disabled="@(!GameEngine?.CanUndo ?? true)" @onclick="UndoMode"><span style="display:inline-block; transform: scaleY(-1); font-family: Arial, sans-serif;">↩</span> Undo</button>
+                <button class="btn btn-dark" disabled="@(!GameEngine?.CanUndo ?? true)" @onclick="UndoModeAsync"><span style="display:inline-block; transform: scaleY(-1); font-family: Arial, sans-serif;">↩</span> Undo</button>
                 <span class="input-group-text">Moves:</span>
                 <span class="input-group-text lcd">@GameEngine?.MoveCount</span>
                 <span class="input-group-text">Time:</span>
@@ -44,7 +44,7 @@
                         }
                     </span>
                 </PeriodicRefresh>
-                <button class="btn btn-dark" disabled="@(!GameEngine?.CanRedo ?? true)" @onclick="RedoMove">Redo <span style="display:inline-block; transform: scaleY(-1);">↪</span></button>
+                <button class="btn btn-dark" disabled="@(!GameEngine?.CanRedo ?? true)" @onclick="RedoMoveAsync">Redo <span style="display:inline-block; transform: scaleY(-1);">↪</span></button>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@
         }
     }
 
-    private void UndoMode()
+    private async Task UndoModeAsync()
     {
         try
         {
@@ -111,14 +111,14 @@
         }
         catch (Exception ex)
         {
-            JsInterop.Alert(ex.Message);
+            await JsInterop.Alert(ex.Message);
 #if DEBUG
             throw;
 #endif
         }
     }
 
-    private void RedoMove()
+    private async Task RedoMoveAsync()
     {
         try
         {
@@ -126,7 +126,7 @@
         }
         catch (Exception ex)
         {
-            JsInterop.Alert(ex.Message);
+            await JsInterop.Alert(ex.Message);
 #if DEBUG
             throw;
 #endif
