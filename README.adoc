@@ -1,0 +1,52 @@
+:toc: macro
+:icons: font
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+
+= Peg Solitaire
+Matt Bergstrom <mbergstrom@acm.org>
+v1.0
+
+toc::[]
+
+== Overview
+
+link:https://en.wikipedia.org/wiki/Peg_solitaire[Peg solitaire] is a 1-player board game in which the user attempts to eliminate all but one marker (usually a peg or marble) from the board.
+The player does so by successively "jumping" a marker over an adjacent marker to a vacant space on the board to eliminate the over-jumped marker. All variants of this implementation share these features:
+
+Basic gameplay:: Jumping and elimination, win and loss detection, _etc_.
+Time tracking:: Tracks the start and times for each game.
+Undo / redo:: The player can undo and redo moves.
+
+[IMPORTANT]
+While included in the solution, the PegSolitaire project doesn't implement the game yet. *Start with PegSolitaire.App instead.*
+
+== Projects
+
+[cols="1,5"]
+|===
+|Project |Description
+
+|FinalTouch.DragDrop |Courtesy of link:https://blog.finaltouch.com/[rlebowitz] and modified from link:https://github.com/rlebowitz/Finaltouch.DragDrop[his GitHub repo]; handles all of that drag and drop stuff that developers still struggle with even though pointing devices have been part of the computer user experience for more than 40 years</rant>.
+|PegSolitaire |The #yet-to-be-implemented# online variant of the Peg Solitaire game that features saving game stats by player.
+|PegSolitaire.App |The standalone Blazor link:https://en.wikipedia.org/wiki/WebAssembly[WebAssembly] variant of the Peg Solitaire game.
+|PegSolitaire.Components |A Blazor component library for the PegSolitaire game containing components used by both the Blazor server and WebAssembly variants.
+|PegSolitaire.Engine |The implementation of the Peg Solitaire game, with boards, setup, move verification, win/loss detection, _etc_.
+|PegSolitaire.Engine.Tests |The unit test library for PegSolitaire.Engine
+|===
+
+== TO DO
+
+Peg Solitaire is an ongoing work in progress. Here are some of the next things on my to-do list:
+
+* Implement more board shapes (_e.g._, hexagon, cross)
+* Implement PegSolitaire--the online, Blazor Server, variant that saves game stats by player to support leader boards, _etc_.
+* Implement a reasonably performant hint system
+* Rename from Peg Solitaire to Marble Solitaire since marbles, not pegs, are portrayed onscreen
