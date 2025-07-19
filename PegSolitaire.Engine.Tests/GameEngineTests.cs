@@ -190,6 +190,6 @@ public class GameEngineTests
     private GameEngine CreateGameEngine()
     {
         INodeSetup nodeSetup = new TriangularNodeSetup(new TriangularNodeAdjacencySetup());
-        return new GameEngine(new GameBoard(nodeSetup.GetInitalNodeState(5).ToList()), new SimpleStateAnalyzer());
+        return new GameEngine(new GameBoard(nodeSetup.GetInitalNodeState(5)), new SimpleStateAnalyzer());
     }
 }

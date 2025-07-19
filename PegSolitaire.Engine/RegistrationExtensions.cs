@@ -2,6 +2,7 @@
 using PegSolitaire.Engine.Analysis;
 using PegSolitaire.Engine.GameState;
 using PegSolitaire.Engine.Setup;
+using PegSolitaire.Engine.Setup.Orthogonal;
 using PegSolitaire.Engine.Setup.Triangular;
 
 namespace PegSolitaire.Engine;
@@ -23,13 +24,15 @@ public static class RegistrationExtensions
         services.AddKeyedScoped<INodeAdjacencySetup, TriangularNodeAdjacencySetup>(StringConstants.BoardShapes
             .Triangular);
 
+        services.AddKeyedScoped<INodeSetup, SquareNodeSetup>(StringConstants.BoardShapes.Square);
+        services.AddKeyedScoped<INodeAdjacencySetup, SquareNodeAdjacencySetup>(StringConstants.BoardShapes.Square);
+
         services.AddScoped<IGameEngine, GameEngine>();
 
-        services.AddScoped<Func<string, int, IGameEngine>>(f => (boardShape, boardSize) =>
+        services.AddScoped<Func<string, int, IGameEngine>>(s => (boardShape, boardSize) =>
         {
-            var setup = f.GetKeyedService<INodeSetup>(boardShape);
-            return ActivatorUtilities.CreateInstance<GameEngine>(f,
-                new GameBoard(setup.GetInitalNodeState(boardSize).ToList()));
+            var setup = s.GetKeyedService<INodeSetup>(boardShape);
+            return ActivatorUtilities.CreateInstance<GameEngine>(s, new GameBoard(setup.GetInitalNodeState(boardSize)));
         });
 
         return services;

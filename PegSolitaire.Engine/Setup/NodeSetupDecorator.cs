@@ -13,7 +13,7 @@ public abstract class NodeSetupDecorator : DecoratedNodeSetup
         _DecoratedNodeSetup = nodeSetup as DecoratedNodeSetup;
     }
 
-    public override IEnumerable<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size)
+    public override List<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size)
     {
         if (_DecoratedNodeSetup != null)
             return _DecoratedNodeSetup.GetInitalNodeState(nodeSetup, size);

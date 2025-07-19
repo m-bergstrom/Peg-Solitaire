@@ -14,5 +14,5 @@ public interface INodeSetup
     /// </summary>
     /// <param name="size">The size of the game board, usually in rows</param>
     /// <returns>A graph of nodes for the board's initial state</returns>
-    IEnumerable<GameNode> GetInitalNodeState(int size);
+    List<GameNode> GetInitalNodeState(int size);
 }

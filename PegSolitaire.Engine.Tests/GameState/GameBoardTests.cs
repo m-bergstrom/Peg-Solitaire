@@ -14,7 +14,7 @@ public class GameBoardTests
         for (var i = TestConstants.MinBoardSize; i <= TestConstants.MaxBoardSize; i++)
         {
             var expectedJumpCount = (i - 2) * (i - 1) * 3;
-            var board = new GameBoard(setup.GetInitalNodeState(i).ToList());
+            var board = new GameBoard(setup.GetInitalNodeState(i));
             Assert.AreEqual(expectedJumpCount, board.JumpCount,
                 $"Expected {expectedJumpCount} possible jumps in the triangular game board; the board has {board.JumpCount} instead");
         }
@@ -26,7 +26,7 @@ public class GameBoardTests
         INodeSetup setup = new TriangularNodeSetup(new TriangularNodeAdjacencySetup());
         for (var i = TestConstants.MinBoardSize; i <= TestConstants.MaxBoardSize; i++)
         {
-            var board = new GameBoard(setup.GetInitalNodeState(i).ToList());
+            var board = new GameBoard(setup.GetInitalNodeState(i));
             var board2 = board.Clone();
             Assert.AreEqual(board.NodeCount, board2.NodeCount,
                 $"The original board has {board.NodeCount} nodes, but the clone has {board2.NodeCount}");

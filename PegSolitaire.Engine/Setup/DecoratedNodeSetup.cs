@@ -6,9 +6,10 @@ namespace PegSolitaire.Engine.Setup;
 public abstract class DecoratedNodeSetup : INodeSetup
 {
     /// <inheritdoc />
-    public IEnumerable<GameNode> GetInitalNodeState(int size) => GetInitalNodeState(this, size);
+    public List<GameNode> GetInitalNodeState(int size) => GetInitalNodeState(this, size);
 
     /// <param name="nodeSetup">The <see cref="INodeSetup"/> to use for public interface calls</param>
+    /// <param name="size"></param>
     /// <inheritdoc cref="INodeSetup.GetInitalNodeState" />
-    public abstract IEnumerable<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size);
+    public abstract List<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size);
 }

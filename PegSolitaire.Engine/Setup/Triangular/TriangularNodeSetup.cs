@@ -5,20 +5,20 @@ namespace PegSolitaire.Engine.Setup.Triangular;
 
 public class TriangularNodeSetup : DecoratedNodeSetup
 {
-    private INodeAdjacencySetup _NodeAdjacencySetup;
+    private const float DistanceBetweenColumns = 0.8660254037844386f; // Math.Sqrt(3) / 2
 
+    private INodeAdjacencySetup _NodeAdjacencySetup;
+    
     public TriangularNodeSetup([FromKeyedServices(StringConstants.BoardShapes.Triangular)]INodeAdjacencySetup nodeAdjacencySetup)
     {
         _NodeAdjacencySetup = nodeAdjacencySetup;
     }
 
-    private const float DistanceBetweenColumns = 0.8660254037844386f; // Math.Sqrt(3) / 2
-
 
     /// <inheritdoc />
     /// <summary>Sets up initial <see cref="GameNode"/> graph for a
     /// triangular <see cref="GameBoard"/></summary>
-    public override IEnumerable<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size)
+    public override List<GameNode> GetInitalNodeState(INodeSetup nodeSetup, int size)
     {
         var firstRow = new HashSet<GameNode> { new(0, 0) { Occupied = false } };
 

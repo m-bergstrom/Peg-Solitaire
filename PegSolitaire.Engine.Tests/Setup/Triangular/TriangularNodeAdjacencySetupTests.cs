@@ -13,7 +13,7 @@ public class TriangularNodeAdjacencySetupTests
         INodeSetup setup = new TriangularNodeSetup(new TriangularNodeAdjacencySetup());
         for (var i = TestConstants.MinBoardSize; i <= TestConstants.MaxBoardSize; i++)
         {
-            var gameNodes = setup.GetInitalNodeState(i).ToList();
+            var gameNodes = setup.GetInitalNodeState(i);
             TestNodeAdjacencyCounts(gameNodes);
         }
 
