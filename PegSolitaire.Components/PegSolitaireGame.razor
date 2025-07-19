@@ -1,0 +1,121 @@
+﻿@using System.Reflection
+@using PegSolitaire.Engine
+@using PegSolitaire.Engine.Analysis
+@using PegSolitaire.Engine.GameState
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject JsInterop JsInterop;
+@inject Func<string, int, IGameEngine> CreateGameEngine;
+@inject IStateAnalyzer StateAnalyzer;
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pre-game-configuration">
+                <EditForm Model="GameSetupModel" OnSubmit="StartGameAsync" FormName="GameSetup">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Board Shape:</span>
+                        <InputSelect id="boardShapeSelect" TValue="string" @bind-Value="GameSetupModel!.BoardShape" class="form-select">
+                            @foreach (var boardShape in GameSetupModel.BoardShapes)
+                            {
+                                <option value="@boardShape">
+                                    @boardShape
+                                </option>
+                            }
+                        </InputSelect>
+                        <span class="input-group-text">Board Size:</span>
+                        <InputNumber TValue="int" @bind-Value="GameSetupModel!.BoardSize" min="3" max="20" class="form-control"/>
+                        <button class="btn btn-outline-primary" type="submit">Start Game</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text">Moves:</span>
+                <span class="input-group-text lcd">@GameEngine?.MoveCount</span>
+            </div>
+        </div>
+    </div>
+
+    @if (GameEngine?.GameBoard != null)
+    {
+        <div class="row">
+            <div class="col-md-6 offset-md-1">
+                <div class="peg-solitaire-board-container">
+                    <CascadingValue Value="IsGameInProgress">
+                        <Pegboard Board="GameEngine.GameBoard" MoveAttempted="@MoveAttemptedAsync"/>
+                    </CascadingValue>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    public IGameEngine? GameEngine { get; set; }
+    public GameSetup GameSetupModel { get; set; } = new();
+    public bool IsGameInProgress => GameEngine?.Stage == Stage.InProgress;
+
+    private async Task MoveAttemptedAsync((GameNode from, GameNode to) fromTo)
+    {
+        var (from, to) = fromTo;
+        var move = GameEngine?.GameBoard.IndexedJumps[from].FirstOrDefault(j => j.To == to);
+        if (move == null)
+        {
+            await JsInterop.Alert("Invalid move");
+            return;
+        }
+
+        try
+        {
+            switch (GameEngine?.MakeMove(move))
+            {
+                case Stage.Lost:
+                    await JsInterop.Alert("GAME OVER. YOU LOSE!");
+                    break;
+                case Stage.Won:
+                    await JsInterop.Alert("You Won!");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            await JsInterop.Alert(ex.Message);
+        }
+
+        StateHasChanged();
+    }
+
+
+    public class GameSetup
+    {
+        private static string[] _BoardShapes;
+
+        static GameSetup()
+        {
+            _BoardShapes = typeof(StringConstants.BoardShapes).GetFields(BindingFlags.Public | BindingFlags.Static).Select(f => f.GetValue(null)).OfType<string>().ToArray();
+        }
+
+        public string[] BoardShapes => _BoardShapes;
+        public string BoardShape { get; set; } = StringConstants.BoardShapes.Triangular;
+        public int BoardSize { get; set; } = 5;
+    }
+
+    private async Task StartGameAsync(EditContext obj)
+    {
+        try
+        {
+            GameEngine = CreateGameEngine(GameSetupModel.BoardShape, GameSetupModel.BoardSize);
+            GameEngine.StartGame();
+        }
+        catch (Exception ex)
+        {
+            await JsInterop.Alert(ex.Message);
+#if DEBUG
+            throw;
+#endif
+        }
+    }
+
+}

@@ -27,4 +27,8 @@
       <ProjectReference Include="..\PegSolitaire.Engine\PegSolitaire.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\scripts\domInterop.js" />
+    </ItemGroup>
+
 </Project>

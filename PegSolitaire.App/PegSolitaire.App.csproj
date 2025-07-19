@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Components\PegBoard.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
     </ItemGroup>
 
     <ItemGroup>

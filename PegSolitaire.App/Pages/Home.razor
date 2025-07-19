@@ -1,26 +1,16 @@
 ﻿@page "/"
 @using PegSolitaire.Components
-@using PegSolitaire.Engine.GameState
-@using PegSolitaire.Engine.Setup.Triangular
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Peg Solitaire</PageTitle>
 
 <div>
-    <h1>Hello, world!</h1>
+    <PegSolitaireGame/>
+</div>
 
-    Welcome to your new app.
-
-    <Pegboard Board="@GameBoard"/>
+<div class="fine-print">
+    <p class="small"><small>The segment font by <a href="https://fontstruct.com/fontstructors/501385/mylicia">Mylicia</a> is available under a <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike license</a>.</small></p>
 </div>
 
 @code {
-    public GameBoard? GameBoard { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        GameBoard = new GameBoard(new TriangularNodeSetup(new TriangularNodeAdjacencySetup()).GetInitalNodeState(5).ToList());
-    }
 
 }

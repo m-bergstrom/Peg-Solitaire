@@ -11,7 +11,7 @@
 
 @rendermode RenderMode.InteractiveAuto
 
-<div class="peg-board" @ref="_ContainerDiv" data-container-id="game-board">
+<div @attributes="AdditionalAttributes" class="peg-board" @ref="_ContainerDiv" data-container-id="game-board">
     @if (Board != null)
     {
         var scaleStyle = $"width: {_ScaledMarbleImageSize}px; height: {_ScaledMarbleImageSize}px;";
@@ -24,7 +24,7 @@
             if (node.Occupied)
             {
                 <div id="@id" data-item-id="@id" class="marble-container node dd-item" style="@positionStyle">
-                    <img id="@id" data-item-id="@id" class="marble node dd-item"
+                    <img id="@id" data-item-id="@id" class="marble node @(IsGameInProgress ? "" : "disabled")"
                          src="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" style="@scaleStyle"/>
                     <img class="marble-highlight"
                          src="./_content/PegSolitaire.Components/images/Sphere_highlight_transparent.png"
@@ -59,9 +59,14 @@
     private const int OriginalMarbleImageSize = 1024;
     private double _ScaledMarbleImageSize;
 
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
     [Parameter] public GameBoard? Board { get; set; }
 
     [Parameter] public EventCallback<(GameNode from, GameNode to)> MoveAttempted { get; set; }
+
+    [CascadingParameter] public bool IsGameInProgress { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -87,8 +92,8 @@
         Console.WriteLine($"Dragging {(!string.IsNullOrEmpty(arg.SourceItemId) ? arg.SourceItemId : "N/A")} from {(!string.IsNullOrEmpty(arg.SourceContainerId) ? arg.SourceContainerId : "N/A")} to {(!string.IsNullOrEmpty(arg.TargetItemId) ? arg.TargetItemId : "N/A")} in {(!string.IsNullOrEmpty(arg.TargetContainerId) ? arg.TargetContainerId : "N/A")}");
 #endif
 
-        var from = arg.SourceItemId ?? arg.SourceContainerId;
-        var to = arg.TargetItemId ?? arg.TargetContainerId;
+        var from = string.IsNullOrEmpty(arg.SourceItemId) ? arg.SourceContainerId : arg.SourceItemId;
+        var to = string.IsNullOrEmpty(arg.TargetItemId) ? arg.TargetContainerId : arg.TargetItemId;
 
         if (!string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to))
         {
@@ -178,10 +183,11 @@
         }
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _ObserverTask?.HaltTaskTriggering();
         _ObserverTask?.ResumeTaskTriggering();
+        return ValueTask.CompletedTask;
     }
 
     private static string GetNodeId(GameNode node)

@@ -1,4 +1,5 @@
-﻿using PegSolitaire.Engine.GameState;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PegSolitaire.Engine.GameState;
 
 namespace PegSolitaire.Engine.Setup.Triangular;
 
@@ -6,7 +7,7 @@ public class TriangularNodeSetup : DecoratedNodeSetup
 {
     private INodeAdjacencySetup _NodeAdjacencySetup;
 
-    public TriangularNodeSetup(TriangularNodeAdjacencySetup nodeAdjacencySetup)
+    public TriangularNodeSetup([FromKeyedServices(StringConstants.BoardShapes.Triangular)]INodeAdjacencySetup nodeAdjacencySetup)
     {
         _NodeAdjacencySetup = nodeAdjacencySetup;
     }

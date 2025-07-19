@@ -9,20 +9,26 @@ namespace PegSolitaire.Components;
 // This class can be registered as scoped DI service and then injected into Blazor
 // components for use.
 
-public class ExampleJsInterop : IAsyncDisposable
+public class JsInterop : IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
-    public ExampleJsInterop(IJSRuntime jsRuntime)
+    public JsInterop(IJSRuntime jsRuntime)
     {
         moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/PegSolitaire.Components/exampleJsInterop.js").AsTask());
+            "import", "./_content/PegSolitaire.Components/jsInterop.js").AsTask());
     }
 
     public async ValueTask<string> Prompt(string message)
     {
         var module = await moduleTask.Value;
         return await module.InvokeAsync<string>("showPrompt", message);
+    }
+
+    public async Task Alert(string message)
+    {
+        var module = await moduleTask.Value;
+        await module.InvokeAsync<string>("showAlert", message);
     }
 
     public async ValueTask DisposeAsync()
