@@ -1,0 +1,62 @@
+﻿@implements IDisposable
+
+@if (ChildContent != null)
+{
+    @ChildContent
+}
+
+@code {
+    private PeriodicTimer? _Timer;
+    private CancellationTokenSource? _TokenSource = new();
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public bool IsRunning { get; set; } = true;
+    [Parameter] public TimeSpan RefreshPeriod { get; set; } = TimeSpan.FromSeconds(1);
+
+    protected override void OnParametersSet()
+    {
+        if (IsRunning)
+            Start();
+        else
+            Stop();
+    }
+
+    private async Task RunAsync(CancellationToken token)
+    {
+        try
+        {
+            while (await _Timer!.WaitForNextTickAsync(token))
+                await InvokeAsync(StateHasChanged);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+    }
+
+    private void Start()
+    {
+        if (_Timer is not null)
+            return; // already running
+
+        _TokenSource = new CancellationTokenSource();
+        _Timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+
+        _ = RunAsync(_TokenSource.Token);
+    }
+
+    private void Stop()
+    {
+        _TokenSource?.Cancel();
+        _Timer?.Dispose();
+
+        _Timer = null;
+        _TokenSource?.Dispose();
+        _TokenSource = null;
+    }
+
+
+    public void Dispose()
+    {
+        Stop();
+    }
+
+}

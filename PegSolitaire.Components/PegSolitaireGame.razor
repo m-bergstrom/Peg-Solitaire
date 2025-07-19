@@ -25,15 +25,26 @@
                         </InputSelect>
                         <span class="input-group-text">Board Size:</span>
                         <InputNumber TValue="int" @bind-Value="GameSetupModel!.BoardSize" min="3" max="20" class="form-control"/>
-                        <button class="btn btn-outline-primary" type="submit">Start Game</button>
+                        <button class="btn btn-primary" type="submit">Start Game</button>
                     </div>
                 </EditForm>
             </div>
         </div>
         <div class="col-md-6">
             <div class="input-group">
+                <button class="btn btn-dark" disabled="@(!GameEngine?.CanUndo ?? true)" @onclick="UndoMode"><span style="display:inline-block; transform: scaleY(-1); font-family: Arial, sans-serif;">↩</span> Undo</button>
                 <span class="input-group-text">Moves:</span>
                 <span class="input-group-text lcd">@GameEngine?.MoveCount</span>
+                <span class="input-group-text">Time:</span>
+                <PeriodicRefresh IsRunning="@IsGameInProgress">
+                    <span class="input-group-text lcd">
+                        @if (GameEngine?.StartTime != null)
+                        {
+                            @(((GameEngine.EndTime ?? DateTimeOffset.Now) - GameEngine.StartTime.Value).ToString(@"mm\:ss"))
+                        }
+                    </span>
+                </PeriodicRefresh>
+                <button class="btn btn-dark" disabled="@(!GameEngine?.CanRedo ?? true)" @onclick="RedoMove">Redo <span style="display:inline-block; transform: scaleY(-1);">↪</span></button>
             </div>
         </div>
     </div>
@@ -69,15 +80,7 @@
 
         try
         {
-            switch (GameEngine?.MakeMove(move))
-            {
-                case Stage.Lost:
-                    await JsInterop.Alert("GAME OVER. YOU LOSE!");
-                    break;
-                case Stage.Won:
-                    await JsInterop.Alert("You Won!");
-                    break;
-            }
+            await AlertGameState(GameEngine?.MakeMove(move));
         }
         catch (Exception ex)
         {
@@ -85,6 +88,49 @@
         }
 
         StateHasChanged();
+    }
+
+    private async Task AlertGameState(Stage? gameState)
+    {
+        switch (gameState)
+        {
+            case Stage.Lost:
+                await JsInterop.Alert("GAME OVER. YOU LOSE!");
+                break;
+            case Stage.Won:
+                await JsInterop.Alert("You Won!");
+                break;
+        }
+    }
+
+    private void UndoMode()
+    {
+        try
+        {
+            GameEngine?.Undo();
+        }
+        catch (Exception ex)
+        {
+            JsInterop.Alert(ex.Message);
+#if DEBUG
+            throw;
+#endif
+        }
+    }
+
+    private void RedoMove()
+    {
+        try
+        {
+            GameEngine?.Redo();
+        }
+        catch (Exception ex)
+        {
+            JsInterop.Alert(ex.Message);
+#if DEBUG
+            throw;
+#endif
+        }
     }
 
 
@@ -107,7 +153,8 @@
         try
         {
             GameEngine = CreateGameEngine(GameSetupModel.BoardShape, GameSetupModel.BoardSize);
-            GameEngine.StartGame();
+            GameEngine?.StartGame();
+            await AlertGameState(GameEngine?.Stage);
         }
         catch (Exception ex)
         {
