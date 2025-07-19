@@ -28,6 +28,29 @@ Undo / redo:: The player can undo and redo moves.
 [IMPORTANT]
 While included in the solution, the PegSolitaire project doesn't implement the game yet. *Start with PegSolitaire.App instead.*
 
+== Build and Execution
+
+This Peg Solitaire requires link:https://dotnet.microsoft.com/en-us/download/dotnet/9.0[.NET 9.0 SDK] to build and run. With that installed, you can execute it from the command line (in the appropriate folder -- try it in PegSolitaire.App!) as follows:
+
+[source,console]
+----
+dotnet run
+----
+
+While it's running, you can connect to it using a web browser pointed to the indicated host and port. My execution looked like this with the host and port on line 3:
+
+[%linenums,source,listing,highlight=3]
+----
+...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5142
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+...
+----
+
 == Projects
 
 [cols="1,5"]
@@ -48,5 +71,6 @@ Peg Solitaire is an ongoing work in progress. Here are some of the next things o
 
 * Implement more board shapes (_e.g._, hexagon, cross)
 * Implement PegSolitaire--the online, Blazor Server, variant that saves game stats by player to support leader boards, _etc_.
+* MORE MARBLE COLORS!!!
 * Implement a reasonably performant hint system
 * Rename from Peg Solitaire to Marble Solitaire since marbles, not pegs, are portrayed onscreen
