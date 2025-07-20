@@ -11,7 +11,7 @@
 
 @rendermode RenderMode.InteractiveAuto
 
-<div @attributes="AdditionalAttributes" class="peg-board" @ref="_ContainerDiv" data-container-id="game-board">
+<div @attributes="AdditionalAttributes" class="game-holder peg-board" @ref="_ContainerDiv" data-container-id="game-board">
     @if (Board != null)
     {
         var scaleStyle = $"width: {_ScaledMarbleImageSize}px; height: {_ScaledMarbleImageSize}px;";
@@ -23,7 +23,7 @@
             var positionStyle = $"left: {transformedNodeX}px; top: {transformedNodeY}px;";
             if (node.Occupied)
             {
-                <div id="@id" data-item-id="@id" class="marble-container node dd-item" style="@positionStyle">
+                <div id="@id" data-item-id="@id" @onclick="_ => Marble_Click(id)" class="marble-container node dd-item" style="@positionStyle">
                     <img id="@id" data-item-id="@id" class="marble node @(IsGameInProgress ? "" : "disabled")"
                          src="./_content/PegSolitaire.Components/images/Translucent_sphere_Chocolate.png" style="@scaleStyle"/>
                     <img class="marble-highlight"
@@ -33,7 +33,7 @@
             }
             else
             {
-                <img id="@id" data-container-id="@id" class="space node dd-container"
+                <img id="@id" data-container-id="@id" @onclick="async _ => await Space_ClickAsync(id)" class="space node dd-container"
                      src="./_content/PegSolitaire.Components/images/Indentation_Shadow.png" style="@positionStyle @scaleStyle"/>
             }
         }
@@ -59,6 +59,8 @@
     private const int OriginalMarbleImageSize = 1024;
     private double _ScaledMarbleImageSize;
 
+    private string? _SelectedMarbleId;
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
@@ -76,7 +78,7 @@
 
             if (DragDropInterop != null)
             {
-                await DragDropInterop.Initialize(DropMarbleRelease, new DragDropOptions());
+                await DragDropInterop.Initialize(DropMarbleReleaseAsync, new DragDropOptions());
             }
         }
 
@@ -86,7 +88,7 @@
         }
     }
 
-    private async Task DropMarbleRelease(DragDropResult arg)
+    private async Task DropMarbleReleaseAsync(DragDropResult arg)
     {
 #if DEBUG
         Console.WriteLine($"Dragging {(!string.IsNullOrEmpty(arg.SourceItemId) ? arg.SourceItemId : "N/A")} from {(!string.IsNullOrEmpty(arg.SourceContainerId) ? arg.SourceContainerId : "N/A")} to {(!string.IsNullOrEmpty(arg.TargetItemId) ? arg.TargetItemId : "N/A")} in {(!string.IsNullOrEmpty(arg.TargetContainerId) ? arg.TargetContainerId : "N/A")}");
@@ -95,6 +97,25 @@
         var from = string.IsNullOrEmpty(arg.SourceItemId) ? arg.SourceContainerId : arg.SourceItemId;
         var to = string.IsNullOrEmpty(arg.TargetItemId) ? arg.TargetContainerId : arg.TargetItemId;
 
+        await AttemptMoveAsync(from, to);
+    }
+
+    private void Marble_Click(string id)
+    {
+        _SelectedMarbleId = id;
+    }
+
+    private async Task Space_ClickAsync(string id)
+    {
+        if (!string.IsNullOrEmpty(_SelectedMarbleId))
+        {
+            await AttemptMoveAsync(_SelectedMarbleId, id);
+        }
+    }
+
+    private async Task AttemptMoveAsync(string from, string to)
+    {
+        _SelectedMarbleId = null;
         if (!string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to))
         {
             var fromNode = GetNodeFromId(from);
@@ -155,7 +176,6 @@
     }
 
     private double? _MinNodeDistance;
-
     /// <summary>
     /// Gets the minimum distance between nodes in the board model
     /// </summary>
