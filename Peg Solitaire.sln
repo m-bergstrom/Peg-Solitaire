@@ -25,6 +25,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		GitHubPages|Any CPU = GitHubPages|Any CPU
+		GitHubPages|x64 = GitHubPages|x64
+		GitHubPages|x86 = GitHubPages|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1281657-9967-402C-B69B-F78C81E2152C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -39,6 +42,9 @@ Global
 		{B1281657-9967-402C-B69B-F78C81E2152C}.Release|x64.Build.0 = Release|Any CPU
 		{B1281657-9967-402C-B69B-F78C81E2152C}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1281657-9967-402C-B69B-F78C81E2152C}.Release|x86.Build.0 = Release|Any CPU
+		{B1281657-9967-402C-B69B-F78C81E2152C}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{B1281657-9967-402C-B69B-F78C81E2152C}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{B1281657-9967-402C-B69B-F78C81E2152C}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -51,6 +57,12 @@ Global
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Release|x64.Build.0 = Release|Any CPU
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Release|x86.ActiveCfg = Release|Any CPU
 		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.Release|x86.Build.0 = Release|Any CPU
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|Any CPU.Build.0 = GitHubPages|Any CPU
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|x64.Build.0 = GitHubPages|x64
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
+		{8DEDF044-FD0B-4AB4-931E-575D2F1439B6}.GitHubPages|x86.Build.0 = GitHubPages|x86
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -63,6 +75,12 @@ Global
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Release|x64.Build.0 = Release|Any CPU
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Release|x86.ActiveCfg = Release|Any CPU
 		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.Release|x86.Build.0 = Release|Any CPU
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|Any CPU.Build.0 = GitHubPages|Any CPU
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|x64.Build.0 = GitHubPages|x64
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
+		{E6ECDB85-FFE6-4335-ABF3-B763ED2CA624}.GitHubPages|x86.Build.0 = GitHubPages|x86
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -75,6 +93,12 @@ Global
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Release|x64.Build.0 = Release|Any CPU
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Release|x86.ActiveCfg = Release|Any CPU
 		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.Release|x86.Build.0 = Release|Any CPU
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|Any CPU.Build.0 = GitHubPages|Any CPU
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|x64.Build.0 = GitHubPages|x64
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
+		{35A6BD3D-A4F9-4367-AC97-BDFB9D574304}.GitHubPages|x86.Build.0 = GitHubPages|x86
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -87,6 +111,12 @@ Global
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Release|x64.Build.0 = Release|Any CPU
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Release|x86.ActiveCfg = Release|Any CPU
 		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.Release|x86.Build.0 = Release|Any CPU
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|Any CPU.Build.0 = GitHubPages|Any CPU
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|x64.Build.0 = GitHubPages|x64
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
+		{DC468544-C991-4A15-8D79-322D0BEDDBAA}.GitHubPages|x86.Build.0 = GitHubPages|x86
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -99,6 +129,12 @@ Global
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Release|x64.Build.0 = Release|Any CPU
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Release|x86.ActiveCfg = Release|Any CPU
 		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.Release|x86.Build.0 = Release|Any CPU
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|Any CPU.ActiveCfg = GitHubPages|Any CPU
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|Any CPU.Build.0 = GitHubPages|Any CPU
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|x64.ActiveCfg = GitHubPages|x64
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|x64.Build.0 = GitHubPages|x64
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|x86.ActiveCfg = GitHubPages|x86
+		{FEE70129-A70C-4F44-89B0-726A2AC7D656}.GitHubPages|x86.Build.0 = GitHubPages|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

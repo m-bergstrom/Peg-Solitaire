@@ -1,0 +1,50 @@
+/* _content/PegSolitaire.Components/Pegboard.razor.rz.scp.css */
+.peg-board[b-uxzit08r32] {
+    width:100%;
+    /*width: 100%;
+    height: 100%;*/
+    /*aspect-ratio: 1 / 1;*/
+    margin: 1em 0;
+    background-image: url('images/Dark_marble.png');
+    background-repeat: repeat;
+    background-size: auto;
+    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.8),
+    inset 1px 1px 5px rgba(0, 0, 0, 1); /* Simulating a bevel effect */
+    overflow: auto;
+    position: relative;
+    align-self: center;
+}
+
+.marble-highlight[b-uxzit08r32] {
+    position: absolute;
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none; /* click passes through */
+}
+
+.marble-container:hover .marble-highlight[b-uxzit08r32] {
+    opacity: 1;
+}
+
+.node[b-uxzit08r32] {
+    position: absolute;
+}
+
+.disabled[b-uxzit08r32] {
+    pointer-events: none;
+}
+/* _content/PegSolitaire.Components/PegSolitaireGame.razor.rz.scp.css */
+@font-face {
+    font-family: 'SevenSegFS';
+    src: url('./fonts/segment.otf.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lcd[b-p2mtexjwi6] {
+    font-family: 'SevenSegFS', monospace;
+    color: #000;
+    background: #303c36;
+    text-shadow: 0 0 4px rgba(0, 255, 0, 0.2),
+    0 0 8px rgba(0, 255, 0, 0.15);
+}

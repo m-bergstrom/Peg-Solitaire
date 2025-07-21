@@ -1,0 +1,15 @@
+﻿/*.game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}*/
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.game-holder {
+    flex: 1 1 auto;
+}
