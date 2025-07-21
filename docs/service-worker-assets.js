@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "P4sAUaVM",
+  "version": "kjzDVIvM",
   "assets": [
     {
       "hash": "sha256-JAkKOGjMVZ5bVmT9qRL55Te4cydCuNpoBaiy3JAK+Ec=",
@@ -54,8 +54,8 @@ self.assetsManifest = {
       "url": "_framework/BlazorComponentUtilities.p9kxg9c327.wasm"
     },
     {
-      "hash": "sha256-UxfmhZ+U+Zhe2UrTzM5oxFDN8UQQqOIF3jsV86DkBXc=",
-      "url": "_framework/Finaltouch.DragDrop.Components.be1xmz1xlj.wasm"
+      "hash": "sha256-w1CWyutKCWdLZVRtMG9k4bxErUXDwR8hbeZV99YPm9Y=",
+      "url": "_framework/Finaltouch.DragDrop.Components.v5fkzpgr7x.wasm"
     },
     {
       "hash": "sha256-cffCMyA1dj8EgHo1At3KBTEPiS2FzfeAeVevGsWzTWs=",
@@ -122,16 +122,16 @@ self.assetsManifest = {
       "url": "_framework/ObserverLibrary.ngru42vjrd.wasm"
     },
     {
-      "hash": "sha256-zMlTpbwil3dXzclJ0/YHQEJpecBaYu2zwF95UPDhtxk=",
-      "url": "_framework/PegSolitaire.App.kucfv370tu.wasm"
+      "hash": "sha256-Lyvp8OQVeQGV9XV3BUFdxcr40e5C/NgBxaFfz+J9jPA=",
+      "url": "_framework/PegSolitaire.App.dd3b7e1myn.wasm"
     },
     {
-      "hash": "sha256-FgV6s39J1bR73iCH/RTbQtQrqM7PofyYF2NhW34f3dU=",
-      "url": "_framework/PegSolitaire.Components.i5dmdfhl2w.wasm"
+      "hash": "sha256-loGIVm9dohRgLzlLc+/+YWFpoZGoDJKXVSzqdjwis3Y=",
+      "url": "_framework/PegSolitaire.Components.e28vv2cfw2.wasm"
     },
     {
-      "hash": "sha256-PV84uAplDQX0KonnnHrs8lBLcAKS43Yc47eBNzXcfkk=",
-      "url": "_framework/PegSolitaire.Engine.flw3lp6ho3.wasm"
+      "hash": "sha256-uZnixCCjcKpEvbllwLE4svu5vR3wSqGoRKrI68vAYc0=",
+      "url": "_framework/PegSolitaire.Engine.90bwaortgm.wasm"
     },
     {
       "hash": "sha256-dkApryZGpqxY1LXTX7qRaJJO+ajFnCyoSNZW1aIHrmY=",
@@ -246,7 +246,7 @@ self.assetsManifest = {
       "url": "_framework/System.wznexm8bk2.wasm"
     },
     {
-      "hash": "sha256-aVLQQKqnVWayemiRv9U4c2fISxc8bRk+Pj7+VbLSUmc=",
+      "hash": "sha256-22jN1FRN3DCz0smJpZYG6JqtDqesAH1dJ7iXhRKm2w8=",
       "url": "_framework/blazor.boot.json"
     },
     {
