@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "gWxeXQn/",
+  "version": "P4sAUaVM",
   "assets": [
     {
       "hash": "sha256-JAkKOGjMVZ5bVmT9qRL55Te4cydCuNpoBaiy3JAK+Ec=",
@@ -54,8 +54,8 @@ self.assetsManifest = {
       "url": "_framework/BlazorComponentUtilities.p9kxg9c327.wasm"
     },
     {
-      "hash": "sha256-YXhvwRRAtaBblwKulolQyYz9PAFBMWnGUCMllJmsQr8=",
-      "url": "_framework/Finaltouch.DragDrop.Components.5rl5fjqh7s.wasm"
+      "hash": "sha256-UxfmhZ+U+Zhe2UrTzM5oxFDN8UQQqOIF3jsV86DkBXc=",
+      "url": "_framework/Finaltouch.DragDrop.Components.be1xmz1xlj.wasm"
     },
     {
       "hash": "sha256-cffCMyA1dj8EgHo1At3KBTEPiS2FzfeAeVevGsWzTWs=",
@@ -122,16 +122,16 @@ self.assetsManifest = {
       "url": "_framework/ObserverLibrary.ngru42vjrd.wasm"
     },
     {
-      "hash": "sha256-MUgF75558lWPMJ1Fdf+gRSlu8jVVbhe696szTzOsPxg=",
-      "url": "_framework/PegSolitaire.App.r9zx7sj815.wasm"
+      "hash": "sha256-zMlTpbwil3dXzclJ0/YHQEJpecBaYu2zwF95UPDhtxk=",
+      "url": "_framework/PegSolitaire.App.kucfv370tu.wasm"
     },
     {
-      "hash": "sha256-kwQXo0VHm9+4+kB8DzFlbgYbq3/F5hJ7EzuFlDwYpKQ=",
-      "url": "_framework/PegSolitaire.Components.xvbtmh6of3.wasm"
+      "hash": "sha256-FgV6s39J1bR73iCH/RTbQtQrqM7PofyYF2NhW34f3dU=",
+      "url": "_framework/PegSolitaire.Components.i5dmdfhl2w.wasm"
     },
     {
-      "hash": "sha256-L/uLdHACPXs6QaBgAL1yvSiD7mImikTcyI1W1Y/rGos=",
-      "url": "_framework/PegSolitaire.Engine.fgm29htz7g.wasm"
+      "hash": "sha256-PV84uAplDQX0KonnnHrs8lBLcAKS43Yc47eBNzXcfkk=",
+      "url": "_framework/PegSolitaire.Engine.flw3lp6ho3.wasm"
     },
     {
       "hash": "sha256-dkApryZGpqxY1LXTX7qRaJJO+ajFnCyoSNZW1aIHrmY=",
@@ -246,7 +246,7 @@ self.assetsManifest = {
       "url": "_framework/System.wznexm8bk2.wasm"
     },
     {
-      "hash": "sha256-i6Io4WBaMwnhpkdzMBBDv+VRh7xWRtUG94Du7zzCaPc=",
+      "hash": "sha256-aVLQQKqnVWayemiRv9U4c2fISxc8bRk+Pj7+VbLSUmc=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -334,7 +334,7 @@ self.assetsManifest = {
       "url": "icon-96x96.png"
     },
     {
-      "hash": "sha256-LwW1QSpxYf06+cq4WyAsMBr0kX0f01BZkojKd3ewNE4=",
+      "hash": "sha256-BwPX7sAYTK3dYjDTIjyOFBHkxDOzhgWycqK131R3/3Q=",
       "url": "index.html"
     },
     {

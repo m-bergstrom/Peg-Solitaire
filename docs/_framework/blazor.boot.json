@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PegSolitaire.App",
   "resources": {
-    "hash": "sha256-TFH/1XcpfroDZJbUi57zE76koZYbkIBch/gngp+F0tw=",
+    "hash": "sha256-kgAyMBk0FTE14sR4Q3tAIQ8PSHpym4XzB5VY52il7Jw=",
     "fingerprinting": {
       "BlazorComponentUtilities.p9kxg9c327.wasm": "BlazorComponentUtilities.wasm",
       "ObserverLibrary.ngru42vjrd.wasm": "ObserverLibrary.wasm",
@@ -49,10 +49,10 @@
       "System.wznexm8bk2.wasm": "System.wasm",
       "netstandard.f63diq1z78.wasm": "netstandard.wasm",
       "System.Private.CoreLib.p2rmlwmth0.wasm": "System.Private.CoreLib.wasm",
-      "Finaltouch.DragDrop.Components.5rl5fjqh7s.wasm": "Finaltouch.DragDrop.Components.wasm",
-      "PegSolitaire.Components.xvbtmh6of3.wasm": "PegSolitaire.Components.wasm",
-      "PegSolitaire.Engine.fgm29htz7g.wasm": "PegSolitaire.Engine.wasm",
-      "PegSolitaire.App.r9zx7sj815.wasm": "PegSolitaire.App.wasm",
+      "Finaltouch.DragDrop.Components.be1xmz1xlj.wasm": "Finaltouch.DragDrop.Components.wasm",
+      "PegSolitaire.Components.i5dmdfhl2w.wasm": "PegSolitaire.Components.wasm",
+      "PegSolitaire.Engine.flw3lp6ho3.wasm": "PegSolitaire.Engine.wasm",
+      "PegSolitaire.App.kucfv370tu.wasm": "PegSolitaire.App.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.st0ovrfdhi.js": "dotnet.native.js",
       "dotnet.native.67rumul467.wasm": "dotnet.native.wasm",
@@ -124,10 +124,10 @@
       "System.Text.RegularExpressions.v9uf7t5k3b.wasm": "sha256-/W0Vw4SauG6lWltj8WRqeki74QEX1NeTHWmdjSurVfg=",
       "System.wznexm8bk2.wasm": "sha256-/Imz/Enqa2AZc4T3k/CqtsM6674KRN9OUtvK4Nokhew=",
       "netstandard.f63diq1z78.wasm": "sha256-VxuUHKX+wSEcc0FdnX0h8glYA2aOKTa7O9b0cNE1jZg=",
-      "Finaltouch.DragDrop.Components.5rl5fjqh7s.wasm": "sha256-YXhvwRRAtaBblwKulolQyYz9PAFBMWnGUCMllJmsQr8=",
-      "PegSolitaire.Components.xvbtmh6of3.wasm": "sha256-kwQXo0VHm9+4+kB8DzFlbgYbq3/F5hJ7EzuFlDwYpKQ=",
-      "PegSolitaire.Engine.fgm29htz7g.wasm": "sha256-L/uLdHACPXs6QaBgAL1yvSiD7mImikTcyI1W1Y/rGos=",
-      "PegSolitaire.App.r9zx7sj815.wasm": "sha256-MUgF75558lWPMJ1Fdf+gRSlu8jVVbhe696szTzOsPxg="
+      "Finaltouch.DragDrop.Components.be1xmz1xlj.wasm": "sha256-UxfmhZ+U+Zhe2UrTzM5oxFDN8UQQqOIF3jsV86DkBXc=",
+      "PegSolitaire.Components.i5dmdfhl2w.wasm": "sha256-FgV6s39J1bR73iCH/RTbQtQrqM7PofyYF2NhW34f3dU=",
+      "PegSolitaire.Engine.flw3lp6ho3.wasm": "sha256-PV84uAplDQX0KonnnHrs8lBLcAKS43Yc47eBNzXcfkk=",
+      "PegSolitaire.App.kucfv370tu.wasm": "sha256-zMlTpbwil3dXzclJ0/YHQEJpecBaYu2zwF95UPDhtxk="
     }
   },
   "cacheBootResources": true,

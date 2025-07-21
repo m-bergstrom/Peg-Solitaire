@@ -32,11 +32,91 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Components\PegBoard.razor" />
-      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+        <!--<_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />-->
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\PegSolitaire.Components\PegSolitaire.Components.csproj" />
     </ItemGroup>
+
+    <!-- Default for Debug & Release -->
+    <PropertyGroup>
+        <!-- Fallback base href -->
+        <BaseHref>/</BaseHref>
+    </PropertyGroup>
+
+    <!-- Overrides for GitHubPages -->
+    <PropertyGroup Condition="'$(Configuration)'=='GitHubPages'">
+        <!-- Point to your repo name on GitHub Pages -->
+        <BaseHref>/Peg-Solitaire/</BaseHref>
+        
+        <IntermediatePublishDir>$(SolutionDir)publish\githubpages\</IntermediatePublishDir>
+
+        <!-- Publish into the pub folder for Pages hosting -->
+        <DocsDir>$(SolutionDir)docs\</DocsDir>
+
+        <!-- Optional: suppress linking if you need raw assets -->
+        <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)'=='GitHubPages'">
+        <PublishDir>$(IntermediatePublishDir)</PublishDir>
+    </PropertyGroup>
+
+    <!-- 2. After publish, copy only the flattened assets into docs/ -->
+    <Target Name="CopyStaticAssetsToDocs"
+            AfterTargets="Publish"
+            Condition="'$(Configuration)'=='GitHubPages'">
+
+        <!-- Clean docs/ -->
+        <RemoveDir Directories="$(DocsDir)" />
+        <MakeDir Directories="$(DocsDir)" />
+
+        <!-- Grab everything Blazor put at the root of wwwroot -->
+        <ItemGroup>
+            <!--<FlattenedAssets Include="
+                $(IntermediatePublishDir)wwwroot\index.html;
+                $(IntermediatePublishDir)wwwroot\css\**\*.*;
+                $(IntermediatePublishDir)wwwroot\_framework\**\*.*;
+                $(IntermediatePublishDir)wwwroot\wasm\**\*.*;
+                $(IntermediatePublishDir)wwwroot\service-worker*.js
+              " />-->
+            <FlattenedAssets Include="$(IntermediatePublishDir)wwwroot\**\*.*" />
+        </ItemGroup>
+
+        <!-- Copy with folder structure preserved -->
+        <Copy
+                SourceFiles="@(FlattenedAssets)"
+                DestinationFiles="@(FlattenedAssets->'$(DocsDir)%(RecursiveDir)%(Filename)%(Extension)')"
+                SkipUnchangedFiles="true" />
+
+        <Message Text="✅ Static assets copied to docs/" Importance="High" />
+    </Target>
+
+
+    <Target Name="InjectBaseHref"
+            AfterTargets="Publish"
+            Condition="'$(Configuration)'=='GitHubPages'">
+        <ReadLinesFromFile File="$(PublishDir)wwwroot/index.html">
+            <Output TaskParameter="Lines" ItemName="HtmlLines" />
+        </ReadLinesFromFile>
+
+        <ItemGroup>
+            <ReplacedLines Include="@(HtmlLines)">
+                <Text>
+                    $([System.Text.RegularExpressions.Regex]::Replace(
+                    '%(Identity)',
+                    '&lt;base href=.*?&gt;',
+                    '&lt;base href=&quot;$(BaseHref)&quot;&gt;'
+                    ))
+                </Text>
+            </ReplacedLines>
+        </ItemGroup>
+
+        <WriteLinesToFile
+                File="$(PublishDir)wwwroot/index.html"
+                Lines="@(ReplacedLines->'%(Text)')"
+                Overwrite="true" />
+    </Target>
+
 
 </Project>
